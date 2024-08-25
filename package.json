@@ -1,0 +1,13 @@
+{
+  "name": "playwright-template",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Antonio-Bellifemine/playwright-template.git",
+  "author": "Antonio Bellifemine <idealconsultinggroup2016@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.46.1",
+    "@types/node": "^22.5.0"
+  },
+  "scripts": {}
+}
