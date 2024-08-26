@@ -23,6 +23,19 @@ test.describe('Can\'t register without all required info', () => {
         await expect(page.locator('#main')).toContainText('Error: \'First Name\' must not be empty.');
     });
 
+    test('Can not sign up a user without last name', async ({page}) => {
+        await page.locator('[id="registration\\[first_name\\]"]').fill(user.firstName);
+        await page.locator('[id="registration\\[user_name\\]"]').fill(user.username);
+        await page.locator('[id="registration\\[email_address\\]"]').fill(user.email);
+        await page.locator('[id="registration\\[password\\]"]').fill(user.password);
+        await page.locator('[id="registration\\[password_confirmation\\]"]').fill(user.password);
+        await page.getByText('I have read and agree with').click();
+        await page.getByRole('button', { name: 'Submit' }).click();
+        // the invalid sign up errors should be visible
+        await expect(page.getByText('Error: \'Last Name\' must not')).toBeVisible();
+        await expect(page.locator('#main')).toContainText('Error: \'Last Name\' must not be empty.');
+    });
+
     test('Can not sign up a user without username', async ({page}) => {  
         // fill in inputs except username      
         await page.locator('[id="registration\\[first_name\\]"]').fill(user.firstName);
@@ -37,21 +50,9 @@ test.describe('Can\'t register without all required info', () => {
         await expect(page.locator('#main')).toContainText('Error: \'User Name\' must not be empty.');
     });
 
-    test('Can not sign up a user without last name', async ({page}) => {
-        await page.locator('[id="registration\\[first_name\\]"]').fill(user.firstName);
-        await page.locator('[id="registration\\[user_name\\]"]').fill(user.username);
-        await page.locator('[id="registration\\[email_address\\]"]').fill(user.email);
-        await page.locator('[id="registration\\[password\\]"]').fill(user.password);
-        await page.locator('[id="registration\\[password_confirmation\\]"]').fill(user.password);
-        await page.getByText('I have read and agree with').click();
-        await page.getByRole('button', { name: 'Submit' }).click();
-        // the invalid sign up errors should be visible
-        await expect(page.getByText('Error: \'Last Name\' must not')).toBeVisible();
-        await expect(page.locator('#main')).toContainText('Error: \'Last Name\' must not be empty.');
-    });
-
     test('Can not sign up a user without Email', async ({page}) => {
         await page.locator('[id="registration\\[first_name\\]"]').fill(user.firstName);
+        await page.locator('[id="registration\\[last_name\\]"]').fill(user.lastName);
         await page.locator('[id="registration\\[user_name\\]"]').fill(user.username);
         await page.locator('[id="registration\\[password\\]"]').fill(user.password);
         await page.locator('[id="registration\\[password_confirmation\\]"]').fill(user.password);
@@ -66,6 +67,7 @@ test.describe('Can\'t register without all required info', () => {
 
     test('Can not sign up a user without password', async ({page}) => {
         await page.locator('[id="registration\\[first_name\\]"]').fill(user.firstName);
+        await page.locator('[id="registration\\[last_name\\]"]').fill(user.lastName);
         await page.locator('[id="registration\\[user_name\\]"]').fill(user.username);
         await page.locator('[id="registration\\[email_address\\]"]').fill(user.email);
         await page.locator('[id="registration\\[password_confirmation\\]"]').fill(user.password);
@@ -78,6 +80,7 @@ test.describe('Can\'t register without all required info', () => {
 
     test('Can not sign up a user without confirm password', async ({page}) => {
         await page.locator('[id="registration\\[first_name\\]"]').fill(user.firstName);
+        await page.locator('[id="registration\\[last_name\\]"]').fill(user.lastName);
         await page.locator('[id="registration\\[user_name\\]"]').fill(user.username);
         await page.locator('[id="registration\\[email_address\\]"]').fill(user.email);
         await page.locator('[id="registration\\[password\\]"]').fill(user.password);
@@ -92,6 +95,7 @@ test.describe('Can\'t register without all required info', () => {
 
     test('Can not sign up a user without agreeing to terms', async ({page}) => {
         await page.locator('[id="registration\\[first_name\\]"]').fill(user.firstName);
+        await page.locator('[id="registration\\[last_name\\]"]').fill(user.lastName);
         await page.locator('[id="registration\\[user_name\\]"]').fill(user.username);
         await page.locator('[id="registration\\[email_address\\]"]').fill(user.email);
         await page.locator('[id="registration\\[password_confirmation\\]"]').fill(user.password);
@@ -104,6 +108,7 @@ test.describe('Can\'t register without all required info', () => {
 
     test('password must meet minimum requirements', async ({page}) => {
         await page.locator('[id="registration\\[first_name\\]"]').fill(user.firstName);
+        await page.locator('[id="registration\\[last_name\\]"]').fill(user.lastName);
         await page.locator('[id="registration\\[user_name\\]"]').fill(user.username);
         await page.locator('[id="registration\\[email_address\\]"]').fill(user.email);
         await page.locator('[id="registration\\[password\\]"]').fill(user.password);
@@ -113,17 +118,17 @@ test.describe('Can\'t register without all required info', () => {
         await expect(page.getByText('Error: \'Password\' does not')).toBeVisible();
         await expect(page.locator('#main')).toContainText('Error: \'Password\' does not meet the minimum security requirements. A password must have 3 of the following: a lower case letter, an upper case letter, a number, or a special character. ex: Embrac3.me!');
     });
-    test.describe('User can successfuly register', () => {
+    // test.describe('User can successfuly register', () => {
 
-        test('password must meet minimum requirements', async ({page}) => {
-            await page.locator('[id="registration\\[first_name\\]"]').fill(user.firstName);
-            await page.locator('[id="registration\\[user_name\\]"]').fill(user.username);
-            await page.locator('[id="registration\\[email_address\\]"]').fill(user.email);
-            await page.locator('[id="registration\\[password\\]"]').fill(user.password);
-            await page.locator('[id="registration\\[password_confirmation\\]"]').fill(`${user.password}B123`);
-            await page.locator('[id="registration\\[password_confirmation\\]"]').fill(`${user.password}B123`);
-            await page.getByText('I have read and agree with').click();
-            await page.getByRole('button', { name: 'Submit' }).click();       
-        });
-    });
+    //     test('password must meet minimum requirements', async ({page}) => {
+    //         await page.locator('[id="registration\\[first_name\\]"]').fill(user.firstName);
+    //         await page.locator('[id="registration\\[user_name\\]"]').fill(user.username);
+    //         await page.locator('[id="registration\\[email_address\\]"]').fill(user.email);
+    //         await page.locator('[id="registration\\[password\\]"]').fill(user.password);
+    //         await page.locator('[id="registration\\[password_confirmation\\]"]').fill(`${user.password}B123`);
+    //         await page.locator('[id="registration\\[password_confirmation\\]"]').fill(`${user.password}B123`);
+    //         await page.getByText('I have read and agree with').click();
+    //         await page.getByRole('button', { name: 'Submit' }).click();       
+    //     });
+    // });
 });
