@@ -9,7 +9,10 @@
     "@playwright/test": "^1.46.1",
     "@types/node": "^22.5.0"
   },
-  "scripts": {},
+  "scripts": {
+    "test:chrome:regression": "yarn playwright test --project=conduit-chromium-regression",
+    "test:embrace:example": "yarn playwright test --project=embrace-chromium-example"
+  },
   "dependencies": {
     "chance": "^1.1.12"
   }

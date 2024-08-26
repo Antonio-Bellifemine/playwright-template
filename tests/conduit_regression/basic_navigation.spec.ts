@@ -4,7 +4,7 @@ import {generateRandomUser} from '../../types/user.ts';
 const user = generateRandomUser();
 
 test.beforeEach( async ({page}) => {
-    await page.goto('https://demo.realworld.io/#/');
+    await page.goto('/');
 });
 
 test('go to sign in page', async ({page}) => {
