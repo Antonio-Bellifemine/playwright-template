@@ -27,6 +27,7 @@ export interface User {
    * - The password is currently set to a static value ("password123").
    * 
    * Static password for demonstration purposes
+   * 
    * @returns {User} A randomly generated user object.
    */
   export function generateRandomUser(): User {
