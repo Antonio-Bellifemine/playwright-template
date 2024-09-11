@@ -17,7 +17,4 @@ test.describe('error message shows when wrong login credentials are used', () =>
         await expect(page.getByText('Error: Please try again. The')).toBeVisible();
         await expect(page.locator('#main')).toContainText('Error: Please try again. The Username or Password you entered is incorrect.');
     });
-    test.step('Can not sign up a user without username', async () => {
-
-    });
   });
